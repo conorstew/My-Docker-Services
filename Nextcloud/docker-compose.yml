@@ -25,7 +25,8 @@ services:
     restart: always
     ports:
       - 8080:80
-    depends_on: mariadb           # "depends_on" expresses startup and shutdown dependencies between services.
+    depends_on: 
+      - mariadb           # "depends_on" expresses startup and shutdown dependencies between services.
     environment:
       - MYSQL_PASSWORD=raspberry
       - MYSQL_DATABASE=mariadb
