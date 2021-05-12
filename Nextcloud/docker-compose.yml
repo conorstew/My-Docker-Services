@@ -1,8 +1,4 @@
-version: '2'
-
-volumes:
-  nextcloud:
-  db:
+# version: '2'   # optionally add a version
 
 services:
   mariadb:
