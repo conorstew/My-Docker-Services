@@ -1,1 +1,44 @@
+version: '2'
 
+volumes:
+  nextcloud:
+  db:
+
+services:
+  mariadb:
+    image: linuxserver/mariadb
+    container_name: mariadb
+#    hostname: mariadb            #hostname is by default set to container_name
+    restart: unless-stopped
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    environment:
+##      - MYSQL_ROOT_PASSWORD=     # root password for installation
+      - MYSQL_DATABASE=mariadb    # database name
+      - MYSQL_USER=nextcloud      # database username
+      - MYSQL_PASSWORD=raspberry  # database password
+    networks:
+      - nextcloud_nw
+    volumes:
+      - mariadb:/var/lib/mysql          
+# OR  - /home/pi/volumes/nextcloud/mariadb:/var/www/html    #this will store the volume in a folder called maria in /volumes/nextcloud
+
+  nextcloud:
+    image: nextcloud
+    container_name: nextcloud
+#    hostname: nextcloud          #hostname is by default set to container_name
+    restart: always
+    ports:
+      - 8080:80
+    depends_on: mariadb           # "depends_on" expresses startup and shutdown dependencies between services.
+    environment:
+      - MYSQL_PASSWORD=raspberry
+      - MYSQL_DATABASE=mariadb
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=mariadb
+    networks:
+      - nextcloud_nw
+    links:
+      - mariadb       # specifies a network link to the database service
+    volumes:
+      - nextcloud:/var/www/html
+# OR  - /home/pi/volumes/nextcloud:/var/www/html    #this will store the volume in a folder called nextcloud in a folder called volumes.
