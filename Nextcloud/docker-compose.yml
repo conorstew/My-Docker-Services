@@ -47,4 +47,5 @@ services:
    - mariadb       # specifies a network link to the database service
   volumes:
    - nextcloud:/var/www/html
+   #- harddrivepath:/data  #this mounts the directory of your harddrive to /data inside the nextcloud container (so that the harddrive can be accessed from within the nextcloud container)
    # OR  - /home/pi/volumes/nextcloud:/var/www/html    #this will store the volume in a folder called nextcloud in a folder called volumes.
