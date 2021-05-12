@@ -1,5 +1,5 @@
 To run Portainer using Docker Compose:   
-`docker-compose up`   
+`docker-compose up -d`   
   
     
 Or, run using CLI commands:  
