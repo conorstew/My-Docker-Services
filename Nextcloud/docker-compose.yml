@@ -17,10 +17,10 @@ services:
   #    hostname: mariadb            #hostname is by default set to container_name
   restart: unless-stopped
   environment:
-   ##      - MYSQL_ROOT_PASSWORD=     # root password for installation
    - MYSQL_DATABASE=mariadb    # database name
    - MYSQL_USER=nextcloud      # database username
    - MYSQL_PASSWORD=raspberry  # database password
+   ##      - MYSQL_ROOT_PASSWORD=     # root password for installation
   networks:
    - nextcloud_nw
   volumes:
