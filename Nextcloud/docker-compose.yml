@@ -46,7 +46,7 @@ services:
   links:
    - mariadb       # specifies a network link to the database service
   volumes:
-   #- nextcloud:/var/www/html     #this will store the volume in /home/pi/volumes/nextcloud.
+   - nextcloud:/var/www/html     # stores the volume on docker host in /home/pi/volumes/nextcloud. This is where all nextcloud data lives.
    #- harddrivemountpath:/var/www/html/data  #this will just store the actual data of your Nextcloud on your hard-drive.
    #- harddrivemountpath:/var/www/html   #this will store the entire nextcloud installation on your hard-drive.
    #- harddrivemountpath:/data  #this mounts the directory of your harddrive to /data inside the nextcloud container (so that the harddrive can be accessed from within the nextcloud container)
