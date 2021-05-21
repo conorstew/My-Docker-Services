@@ -13,7 +13,7 @@ volumes:
 networks:
  nextcloud_nw:
   name: nextcloud_nw
- bridge:
+ 
 
 services:
  mariadb:
