@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
-    # devices:
-    #  - /dev/ttyACM0:/dev/ttyACM0
+     devices:
+      - /dev/ttyACM0:/dev/ttyACM0   # this device is your printer
     #  - /dev/video0:/dev/video0
     volumes:
      - octoprint:/octoprint
