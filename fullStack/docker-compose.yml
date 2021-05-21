@@ -60,14 +60,14 @@ services:
   container_name: octoprint
   restart: unless-stopped
   ports:
-    - 80:80
-  # devices:
-  #  - /dev/ttyACM0:/dev/ttyACM0
-  #  - /dev/video0:/dev/video0
+   - 80:80
+  devices:
+   - /dev/ttyACM0:/dev/ttyACM0  # this device is your printer
+   #- /dev/video0:/dev/video0   # this device is your webcam
   volumes:
    - octoprint:/octoprint
-  # uncomment the lines below to ensure camera streaming is enabled when
-  # you add a video device
+   
+  # uncomment the lines below to ensure camera streaming is enabled when you add a video device
   #environment:
   #  - ENABLE_MJPG_STREAMER=true
  portainer:
