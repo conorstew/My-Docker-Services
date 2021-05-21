@@ -57,6 +57,7 @@ services:
    # FOR MORE INFO ABOUT THESE VOlUMES READ  https://github.com/nextcloud/docker#persistent-data
  octoprint:
   image: octoprint/octoprint
+  container_name: octoprint
   restart: unless-stopped
   ports:
     - 80:80
