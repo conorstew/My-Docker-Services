@@ -1,1 +1,81 @@
+# version: '2'   # optionally add a version
 
+volumes:
+ nextcloud:
+  name: nextcloud
+ mariadb:
+  name: nc-mariadb
+ octoprint:
+  name: octoprint
+ portainer_data:
+  name: portainer_data
+
+networks:
+ nextcloud_nw:
+  name: nextcloud_nw
+ bridge:
+
+services:
+ mariadb:
+  image: linuxserver/mariadb
+  container_name: mariadb
+  #    hostname: mariadb            #hostname is by default set to container_name
+  restart: unless-stopped
+  environment:
+   - MYSQL_DATABASE=mariadb    # database name
+   - MYSQL_USER=nextcloud      # database username
+   - MYSQL_PASSWORD=raspberry  # database password
+   ##      - MYSQL_ROOT_PASSWORD=     # root password for installation
+  networks:
+   - nextcloud_nw
+  volumes:
+   - mariadb:/var/lib/mysql          
+   # OR  - /home/pi/volumes/nextcloud/mariadb:/var/www/html    #this will store the volume in a folder called maria in /volumes/nextcloud
+
+ nextcloud:
+  image: nextcloud
+  container_name: nextcloud
+  #    hostname: nextcloud          #hostname is by default set to container_name
+  restart: always
+  ports:
+   - 8080:80
+  depends_on: 
+   - mariadb           # "depends_on" expresses startup and shutdown dependencies between services.
+  environment:
+   - MYSQL_PASSWORD=raspberry
+   - MYSQL_DATABASE=mariadb
+   - MYSQL_USER=nextcloud
+   - MYSQL_HOST=mariadb
+  networks:
+   - nextcloud_nw
+  links:
+   - mariadb       # specifies a network link to the database service
+  volumes:
+   - nextcloud:/var/www/html     # stores the volume on docker host in /home/pi/volumes/nextcloud. This is where all nextcloud data lives.
+   #- harddrivemountpath:/var/www/html/data  #this will just store the actual data of your Nextcloud on your hard-drive.
+   #- harddrivemountpath:/data  #this mounts the directory of your harddrive to /data inside the nextcloud container (so that the harddrive can be accessed from within the nextcloud container)
+   # FOR MORE INFO ABOUT THESE VOlUMES READ  https://github.com/nextcloud/docker#persistent-data
+ octoprint:
+  image: octoprint/octoprint
+    restart: unless-stopped
+    ports:
+      - 80:80
+    # devices:
+    #  - /dev/ttyACM0:/dev/ttyACM0
+    #  - /dev/video0:/dev/video0
+    volumes:
+     - octoprint:/octoprint
+    # uncomment the lines below to ensure camera streaming is enabled when
+    # you add a video device
+    #environment:
+    #  - ENABLE_MJPG_STREAMER=true
+ portainer:
+  image: portainer/portainer-ce
+  container_name: portainer
+  restart: always
+  ports:
+   - "8000:8000"
+   - "9000:9000"
+  volumes:
+   - /var/run/docker.sock:/var/run/docker.sock
+   - portainer_data:/data
