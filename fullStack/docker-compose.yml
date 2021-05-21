@@ -60,7 +60,7 @@ services:
   container_name: octoprint
   restart: unless-stopped
   ports:
-   - 9500:80
+   - 80:80
   devices:
    - /dev/ttyUSB0:/dev/ttyACM0  # this device is the printer
    #- /dev/video0:/dev/video0   # this device is the webcam
