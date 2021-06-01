@@ -63,7 +63,7 @@ services:
    - 80:80
   devices:
    - /dev/ttyUSB0:/dev/ttyACM0  # this device is the printer
-   #- /dev/video0:/dev/video0   # this device is the webcam
+   - /dev/video0:/dev/video0   # this device is the webcam
   volumes:
    - octoprint:/octoprint
    
