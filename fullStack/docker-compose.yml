@@ -1,21 +1,30 @@
 # version: '2'   # optionally add a version
 
-volumes:
+volumes: 
  nextcloud:
   name: nextcloud
  mariadb:
-  name: nc-mariadb
+  name: nextclouds-mariadb
  octoprint:
   name: octoprint
  portainer_data:
   name: portainer_data
+ nodered:
+  name: nodered
 
 networks:
- nextcloud_nw:
-  name: nextcloud_nw
- 
+ #nextcloud_nw:
+ # name: nextcloud_nw
 
 services:
+ nodered:
+  image: nodered/node-red:latest
+  container_name: node-red
+  restart: unless-stopped
+  ports:
+   - "1880:1880"
+   volumes: NodeREDdata:/data 
+
  mariadb:
   image: linuxserver/mariadb
   container_name: mariadb
@@ -62,7 +71,7 @@ services:
   ports:
    - 80:80
   devices:
-   - /dev/ttyUSB0:/dev/ttyACM0  # this device is the printer
+   - /dev/ttyUSB0:/dev/ttyACM0  # this is the USB device (eg. 3d printer)
    - /dev/video0:/dev/video0   # this device is the webcam
   volumes:
    - octoprint:/octoprint
@@ -80,3 +89,4 @@ services:
   volumes:
    - /var/run/docker.sock:/var/run/docker.sock
    - portainer_data:/data
+  
