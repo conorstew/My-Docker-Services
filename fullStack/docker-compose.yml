@@ -13,8 +13,8 @@ volumes:
   name: nodered
 
 networks:
- #nextcloud_nw:
- # name: nextcloud_nw
+ nextcloud_nw:
+  name: nextcloud_nw
 
 services:
  nodered:
@@ -23,7 +23,7 @@ services:
   restart: unless-stopped
   ports:
    - 1880:1880
-   volumes: NodeREDdata:/data 
+  volumes: NodeREDdata:/data 
 
  mariadb:
   image: linuxserver/mariadb
