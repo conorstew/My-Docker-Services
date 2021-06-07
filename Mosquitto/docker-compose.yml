@@ -1,20 +1,21 @@
 
 
 services:
- mosquitto: eclipse-mosquitto
- container_name: mosquitto-mqtt-broker
- restart: unless-stopped
- ports:
-  - 1883:1883
-  #- 8883:8883
- networks:
-  - iot
- volumes:
-  - mosquitto-data:/mosquitto/data
-  #- mosquitto-logs:/mosquitto/logs
-  - ./volumes/mosquitto/config:/mosquitto/config
-  #- ./volumes/mosquitto/pwfile:/mosquitto/pwfile
+ mosquitto: 
+  image: eclipse-mosquitto
+  container_name: mosquitto-mqtt-broker
+  restart: unless-stopped
+  ports:
+   - 1883:1883
+   #- 8883:8883
+  networks:
+   - iot
+  volumes:
+   - mosquitto-data:/mosquitto/data
+   #- mosquitto-logs:/mosquitto/logs
+   - ./volumes/mosquitto/config:/mosquitto/config
+   #- ./volumes/mosquitto/pwfile:/mosquitto/pwfile
 
-networks:
- iot:
-  name: iot
+ networks:
+  iot:
+   name: iot
