@@ -22,7 +22,7 @@ services:
   container_name: node-red
   restart: unless-stopped
   ports:
-   - "1880:1880"
+   - 1880:1880
    volumes: NodeREDdata:/data 
 
  mariadb:
