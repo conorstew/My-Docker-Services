@@ -23,7 +23,8 @@ services:
   restart: unless-stopped
   ports:
    - 1880:1880
-  volumes: NodeREDdata:/data 
+  volumes: 
+   - nodered:/data 
 
  mariadb:
   image: linuxserver/mariadb
