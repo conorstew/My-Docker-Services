@@ -1,5 +1,11 @@
 
+volumes:
+ mosquitto-data:
 
+#networks:
+  #iot:
+   #name: iot
+   
 services:
  mosquitto: 
   image: eclipse-mosquitto
@@ -7,15 +13,12 @@ services:
   restart: unless-stopped
   ports:
    - 1883:1883
-   #- 8883:8883
-  networks:
-   - iot
+  #networks:
+   #- iot
   volumes:
    - mosquitto-data:/mosquitto/data
-   #- mosquitto-logs:/mosquitto/logs
-   - ./volumes/mosquitto/config:/mosquitto/config
+   - ./config:/mosquitto/config  
+   #- mosquitto-logs:/mosquitto/logs  //uncomment to store logs
    #- ./volumes/mosquitto/pwfile:/mosquitto/pwfile
 
- networks:
-  iot:
-   name: iot
+ 
