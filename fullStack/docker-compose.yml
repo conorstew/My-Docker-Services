@@ -1,4 +1,3 @@
-# version: '2'   # optionally add a version
 
 volumes: 
  nextcloud:
