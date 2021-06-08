@@ -11,12 +11,13 @@ volumes:
   name: portainer_data
  nodered:
   name: nodered
+ mosquitto-data:
+  name: mosquitto-data
 
 networks:
  nextcloud_nw:
   name: nextcloud_nw
- iot:
-  name: iot
+
   
 services:
  mosquitto:
@@ -25,8 +26,11 @@ services:
   restart: unless-stopped
   ports:
    - 1883:1883
-  networks:
-   - iot
+  volumes:
+   - mosquitto-data:/mosquitto/data
+   - ./mosquitto-config:/mosquitto/config
+   #- mosquitto-logs:/mosquitto/logs  //uncomment to store logs
+   #- ./volumes/mosquitto/pwfile:/mosquitto/pwfile
 
  nodered:
   image: nodered/node-red:latest
@@ -36,8 +40,6 @@ services:
    - 1880:1880
   volumes: 
    - nodered:/data 
-  networks:
-   - iot
 
  mariadb:
   image: linuxserver/mariadb
