@@ -1,1 +1,26 @@
-
+#version: "2.1"
+services:
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000   # check your PUID and PGUID with this command: id username (eg. id pi)
+      - PGID=1000
+      - TZ=Canada/Vancouver
+      - SERVERURL=conorscoots.duckdns.org #optional
+      - SERVERPORT=51820 #optional
+      - PEERS=Macbook,pocophone #optional 
+      - PEERDNS=auto #optional
+      - INTERNAL_SUBNET=10.13.13.0 #optional #Internal subnet for the wireguard and server and peers (only change if it clashes). Used in server mode
+      - ALLOWEDIPS=0.0.0.0/0 #optional
+    volumes:
+      - ./wireguard-config:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
