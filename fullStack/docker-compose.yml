@@ -91,9 +91,13 @@ services:
   volumes:
    - octoprint:/octoprint
    
-  # uncomment the lines below to ensure camera streaming is enabled when you add a video device
-  #environment:
-  #  - ENABLE_MJPG_STREAMER=true
+  # comment/uncomment the lines below to ensure camera streaming is enabled when you add a video device
+  
+  environment:
+   - ENABLE_MJPG_STREAMER=true
+   - MJPG_STREAMER_INPUT=-r 640x480 -f 10 -y
+   - CAMERA_DEV=/dev/video0
+  
  portainer:
   image: portainer/portainer-ce
   container_name: portainer
