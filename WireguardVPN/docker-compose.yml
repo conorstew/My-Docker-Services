@@ -12,7 +12,7 @@ services:
       - TZ=Canada/Vancouver
       - SERVERURL=conorscoots.duckdns.org #optional
       - SERVERPORT=51820 #optional
-      - PEERS=5 #optional 
+      - PEERS= macbookpro, poco #optional 
       - PEERDNS=auto #optional
       - INTERNAL_SUBNET=10.13.13.0 #optional #Internal subnet for the wireguard and server and peers (only change if it clashes). Used in server mode
       - ALLOWEDIPS=0.0.0.0/0 #optional
