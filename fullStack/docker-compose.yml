@@ -80,6 +80,7 @@ services:
    #- harddrivemountpath:/data  #this mounts the directory of your harddrive to /data inside the nextcloud container (so that the harddrive can be accessed from within the nextcloud container)
    # FOR MORE INFO ABOUT THESE VOlUMES READ  https://github.com/nextcloud/docker#persistent-data
  octoprint:
+  privileged: true
   image: octoprint/octoprint
   container_name: octoprint
   restart: unless-stopped
@@ -97,6 +98,7 @@ services:
    - ENABLE_MJPG_STREAMER=true
    - MJPG_STREAMER_INPUT=-r 640x480 -f 10 -y
    - CAMERA_DEV=/dev/video0
+  
   
  portainer:
   image: portainer/portainer-ce
