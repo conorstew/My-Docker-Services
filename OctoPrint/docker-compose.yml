@@ -16,6 +16,7 @@ services:
    - ENABLE_MJPG_STREAMER=true
    - MJPG_STREAMER_INPUT=-r 640x480 -f 10 -y
    - CAMERA_DEV=/dev/video0
+  privileged: true
    
    
   
